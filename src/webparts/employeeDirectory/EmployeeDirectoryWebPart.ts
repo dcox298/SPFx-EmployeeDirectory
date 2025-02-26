@@ -36,8 +36,10 @@ export default class EmployeeDirectoryWebPart extends BaseClientSideWebPart<IEmp
     const element: React.ReactElement<IEmployeeDirectoryProps> = React.createElement(
       EmployeeDirectory,
       {
+        context:this.context,
+        client: this._client,
         view: this.properties.view,
-        client: this._client
+        
       }
     );
 

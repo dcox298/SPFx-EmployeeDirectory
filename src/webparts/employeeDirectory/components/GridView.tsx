@@ -1,12 +1,15 @@
-import { DocumentCard,  DocumentCardDetails, DocumentCardTitle, DocumentCardType, ISize, Persona, PersonaSize, Stack} from "@fluentui/react"
+import { ISize,  PersonaBase,  PersonaSize, Stack} from "@fluentui/react"
 import * as React from "react"
 import { IEmployee } from "../models/IEmployee";
 import { GridLayout } from "@pnp/spfx-controls-react/lib/GridLayout";
+import { LivePersona } from "@pnp/spfx-controls-react";
+import { WebPartContext } from "@microsoft/sp-webpart-base";
 
 
 
 interface GridViewProps{
-    allUsers:IEmployee[];
+  context:WebPartContext
+  allUsers:IEmployee[];
 }
 
 export default function GridView(props:GridViewProps):JSX.Element {
@@ -18,33 +21,17 @@ export default function GridView(props:GridViewProps):JSX.Element {
           role="listitem"
           aria-label={item.displayName}
         >
-          <DocumentCard
-            type={isCompact ? DocumentCardType.compact : DocumentCardType.normal}
-            onClick={(ev: React.SyntheticEvent<HTMLElement>) => alert("You clicked on a grid item")}
-      
-          >
-            {!isCompact && (
-                <Persona 
-                    text={item.displayName||'Error'}
-                    secondaryText={item.jobTitle||'Error'}
-                    //tertiaryText={item.jobTitle||'Error'}
-                    imageUrl={item.photoUrl}
-                    size={PersonaSize.size72}
-                    imageAlt={item.displayName||'Error'}
-                    //presence={item.presence}
-                    //presenceTitle={item.presence}
-                    
-                />
-                )
-            }
-            <DocumentCardTitle title={item.userPrincipalName||'Error'} />
-            {!isCompact && (
-                <DocumentCardDetails>
-                    <DocumentCardTitle title={item.mail||'Error'} showAsSecondaryTitle shouldTruncate />
-                    <DocumentCardTitle title={item.jobTitle||'Error'} showAsSecondaryTitle/>
-                </DocumentCardDetails>
-            )}
-          </DocumentCard>
+         <Stack>
+            <Stack horizontal>
+              <LivePersona serviceScope={props.context.serviceScope} upn={item.userPrincipalName} 
+                template={
+                 <PersonaBase text={item.displayName} size={PersonaSize.size56}>
+                  
+                 </PersonaBase>
+                }
+              />
+            </Stack>
+         </Stack>
         </div>;
       }
     return (

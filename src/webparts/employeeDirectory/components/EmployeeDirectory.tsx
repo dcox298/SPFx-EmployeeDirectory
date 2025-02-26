@@ -66,7 +66,7 @@ export default function EmployeeDirectory(props: IEmployeeDirectoryProps):JSX.El
               </Stack.Item>
               <Stack.Item>
                   {view === 'list' &&(<DetailsList items={allUsers} />)}
-                  {view === 'grid' &&(<GridView allUsers={allUsers} />)}
+                  {view === 'grid' &&(<GridView allUsers={allUsers} context={props.context}/>)}
               </Stack.Item>
               <Stack.Item>
                 <Pagination 

@@ -22,7 +22,7 @@
     "description": { "default": "EmployeeDirectory description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "EmployeeDirectory"
+      "view": "grid"
     }
   }]
 }
